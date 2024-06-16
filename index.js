@@ -24,8 +24,8 @@ app.get("/", (req, res) => {
 })
 
 const verifyToken = (req, res, next) => {
-    const header = req.headers.authorization;
-    if (!header) {
+    const authorization = req.headers.authorization;
+    if (!authorization) {
         return res.status(401).send({ massage: "Unauthorize Access" })
     }
     const token = header.split(' ')[1]
@@ -60,7 +60,6 @@ async function run() {
             const id = req.params.id
             const query = { _id: new ObjectId(id) };
             const curser = await services.findOne(query)
-            // const result = await curser.toArray()
             res.send(curser)
         })
 
